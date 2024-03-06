@@ -1,0 +1,14 @@
+{% extends 'graph/gohome.html' %}
+
+{% block page %}
+<h2>Visualização Online</h2>
+    
+    {% if ibovespa_base64 %}
+        <img src="data:image/png;base64,{{ ibovespa_base64 }}" alt="Gráfico Ibovespa">
+    {% endif %}
+    
+    {% if dolar_base64 %}
+        <img src="data:image/png;base64,{{ dolar_base64 }}" alt="Gráfico Dólar">
+    {% endif %}
+   
+{% endblock %}

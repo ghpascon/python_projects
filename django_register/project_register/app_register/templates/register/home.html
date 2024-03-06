@@ -1,0 +1,53 @@
+{% extends 'register/header_home.html' %}
+{% block page %}
+<form id="registerForm" action="{% url 'register_product' %}" method="post">
+  {% csrf_token %}
+  <div style="text-align: left;" class="container">
+      <h1>Register Product</h1>
+      <br>Name of Product:<br> <input id="product_name" name="product_name" class="form-control-sm" type="text" required>
+      <br>Color:<br> <input id="product_color" name="product_color" class="form-control-sm" type="text" required>
+      <br>Size:<br> <input id="product_size" name="product_size" class="form-control-sm" type="text" required>
+      <br>Amount:<br> <input id="product_amount" name="product_amount" class="form-control-sm" type="text" required>
+      <br><button id="registerButton" class="form-control-sm" disabled>Register</button>
+  </div>
+</form>
+<form action="{% url 'register_page' %}" method="post">
+  {% csrf_token %}
+  <div style="text-align: left;" class="container">
+      <br><button class="form-control-sm">See Registered Products</button>
+  </div>
+</form>
+
+<script>
+  // Obtém referências para os campos do formulário e o botão de registro
+  var productNameInput = document.getElementById('product_name');
+  var productColorInput = document.getElementById('product_color');
+  var productSizeInput = document.getElementById('product_size');
+  var productAmountInput = document.getElementById('product_amount');
+  var registerButton = document.getElementById('registerButton');
+
+  // Adiciona um ouvinte de evento para o evento 'input' em cada campo de entrada
+  productNameInput.addEventListener('input', validateForm);
+  productColorInput.addEventListener('input', validateForm);
+  productSizeInput.addEventListener('input', validateForm);
+  productAmountInput.addEventListener('input', validateForm);
+
+  // Função para validar o formulário
+  function validateForm() {
+    // Verifica se todos os campos têm valores
+    if (productNameInput.value.trim() !== '' && productColorInput.value.trim() !== '' && productSizeInput.value.trim() !== '' && productAmountInput.value.trim() !== '') {
+      // Verifica se o campo product_amount contém apenas números
+      if (!isNaN(productAmountInput.value.trim())) {
+        // Habilita o botão de registro se todos os campos estiverem preenchidos e o campo product_amount contiver apenas números
+        registerButton.disabled = false;
+      } else {
+        // Desabilita o botão de registro se o campo product_amount não contiver apenas números
+        registerButton.disabled = true;
+      }
+    } else {
+      // Desabilita o botão de registro se algum dos campos estiver vazio
+      registerButton.disabled = true;
+    }
+  }
+</script>
+{% endblock %}

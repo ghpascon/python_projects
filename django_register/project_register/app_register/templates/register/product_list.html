@@ -1,0 +1,29 @@
+{% extends 'register/gohome.html' %}
+{% block page %}
+<div class="container">
+  <h1>Registered Products:</h1>
+  <table class="table table-bordered table-striped">      <tr>
+          <th>Id</th>
+          <th>Product</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Amount</th>
+      </tr>
+      {% for pd in products %}
+      <tr>
+          <td>{{ pd.product_id }}</td>
+          <td>{{ pd.product_name }}</td>
+          <td>{{ pd.product_color }}</td>
+          <td>{{ pd.product_size }}</td>
+          <td>{{ pd.product_amount }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  <form action="{% url 'clear_page' %}" method="post">
+    {% csrf_token %}
+    <div style="text-align: left;" class="container">
+        <br><button class="form-control-sm">Clear Database</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'graph/gohome.html' %}
+
+{% block page %}
+<form id="registerForm" action="{% url 'email_get' %}" method="post">
+    {% csrf_token %}
+    <div style="text-align: left;" class="container">
+        <h1>Cadastre o email para receber o relatorio</h1>
+        <br>Preencha seu nome:<br> <input id="nome_user" name="nome_user" class="form-control-sm" type="text" required>
+        <br>Preencha seu email:<br> <input id="email_user" name="email_user" class="form-control-sm" type="text"
+            required>
+        <br><button class="form-control-sm">Receber Relatório</button>
+    </div>
+</form>
+{% endblock %}

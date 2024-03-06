@@ -1,0 +1,35 @@
+{% extends 'graph/header_home.html' %}
+{% block page %}
+<script>
+  function validarDatas() {
+      var startDate = new Date(document.getElementById("start_date").value);
+      var endDate = new Date(document.getElementById("end_date").value);
+      var today = new Date();
+      var limiteData = new Date("1994-01-01"); // Data limite a partir de 1994
+
+      // Verifica se as datas são válidas, se a data de início é anterior à data de término e se ambas estão a partir de 1994
+      if (startDate < endDate && startDate <= today && endDate <= today && startDate >= limiteData && endDate >= limiteData) {
+          document.getElementById("gerar_relatorio_btn").disabled = false;
+      } else {
+          document.getElementById("gerar_relatorio_btn").disabled = true;
+      }
+  }
+</script>
+
+
+<form id="reportForm" action="{% url 'product_register' %}" method="post">
+  {% csrf_token %}
+    <div style="text-align: left; " class="container">
+      <h1>Relatório Ibovespa e Dólar</h1>
+      <br>Data de Início:<br> <input id="start_date" name="start_date" class="form-control-sm" type="date" required onchange="validarDatas()">
+      <br>Data de Término:<br> <input id="end_date" name="end_date" class="form-control-sm" type="date" required onchange="validarDatas()">
+      <br>Como deseja receber:
+      <select id="receive_method" name="receive_method" class="form-control-sm" required>
+        <option value="visualizar_online">Visualizar Online</option>
+        <option value="receber_por_email">Receber por Email</option>
+        <option value="baixar_relatorio">Baixar Relatório</option>
+      </select>
+      <br><button id="gerar_relatorio_btn" class="form-control-sm" disabled>Gerar Relatório</button>
+  </div>
+</form>
+{% endblock %}

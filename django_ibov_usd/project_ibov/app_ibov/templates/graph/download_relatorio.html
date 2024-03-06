@@ -1,0 +1,12 @@
+{% extends 'graph/gohome.html' %}
+
+{% block page %}
+    <h2>Download de Arquivo DOCX</h2>
+    {% if relatorio_base64 %}
+        <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,{{ relatorio_base64 }}" download="relatorio.docx">
+            <button type="button">Download do Arquivo DOCX</button>
+        </a>
+    {% else %}
+        <p>O relatório não está disponível.</p>
+    {% endif %}
+{% endblock %}
